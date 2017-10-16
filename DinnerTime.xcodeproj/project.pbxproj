@@ -10,10 +10,14 @@
 		416E726E9EDB4D2F7DEC4C5F /* Pods_DinnerTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81F0D52A193D9788D979DE4 /* Pods_DinnerTime.framework */; };
 		F156A0461F9477A500DC027A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F156A0451F9477A500DC027A /* GoogleService-Info.plist */; };
 		F1E2921A1F94755500D273EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292191F94755500D273EF /* AppDelegate.swift */; };
-		F1E2921C1F94755500D273EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2921B1F94755500D273EF /* ViewController.swift */; };
+		F1E2921C1F94755500D273EF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2921B1F94755500D273EF /* LoginVC.swift */; };
 		F1E2921F1F94755500D273EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E2921D1F94755500D273EF /* Main.storyboard */; };
 		F1E292211F94755500D273EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1E292201F94755500D273EF /* Assets.xcassets */; };
 		F1E292241F94755500D273EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E292221F94755500D273EF /* LaunchScreen.storyboard */; };
+		F1F66D251F948F9600AF371D /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F66D241F948F9600AF371D /* HomeVC.swift */; };
+		F1F66D271F94900000AF371D /* SavedRecipesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F66D261F94900000AF371D /* SavedRecipesVC.swift */; };
+		F1F66D291F94905500AF371D /* BrowseRecipesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F66D281F94905500AF371D /* BrowseRecipesVC.swift */; };
+		F1F66D2B1F94908000AF371D /* DinnerRouletteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F66D2A1F94908000AF371D /* DinnerRouletteVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,11 +27,15 @@
 		F156A0451F9477A500DC027A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F1E292161F94755500D273EF /* DinnerTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinnerTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E292191F94755500D273EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F1E2921B1F94755500D273EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F1E2921B1F94755500D273EF /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		F1E2921E1F94755500D273EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1E292201F94755500D273EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1E292231F94755500D273EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1E292251F94755500D273EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1F66D241F948F9600AF371D /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		F1F66D261F94900000AF371D /* SavedRecipesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedRecipesVC.swift; sourceTree = "<group>"; };
+		F1F66D281F94905500AF371D /* BrowseRecipesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseRecipesVC.swift; sourceTree = "<group>"; };
+		F1F66D2A1F94908000AF371D /* DinnerRouletteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DinnerRouletteVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +75,11 @@
 		F1DCC4BA1F9478E100363137 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F1E2921B1F94755500D273EF /* ViewController.swift */,
+				F1E2921B1F94755500D273EF /* LoginVC.swift */,
+				F1F66D281F94905500AF371D /* BrowseRecipesVC.swift */,
+				F1F66D2A1F94908000AF371D /* DinnerRouletteVC.swift */,
+				F1F66D241F948F9600AF371D /* HomeVC.swift */,
+				F1F66D261F94900000AF371D /* SavedRecipesVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -240,8 +252,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1E2921C1F94755500D273EF /* ViewController.swift in Sources */,
+				F1F66D251F948F9600AF371D /* HomeVC.swift in Sources */,
+				F1F66D291F94905500AF371D /* BrowseRecipesVC.swift in Sources */,
+				F1F66D2B1F94908000AF371D /* DinnerRouletteVC.swift in Sources */,
+				F1E2921C1F94755500D273EF /* LoginVC.swift in Sources */,
 				F1E2921A1F94755500D273EF /* AppDelegate.swift in Sources */,
+				F1F66D271F94900000AF371D /* SavedRecipesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
