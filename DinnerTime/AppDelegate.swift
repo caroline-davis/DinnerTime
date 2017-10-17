@@ -18,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
      
         FirebaseApp.configure()
+        
+        // code needed to make fb swift pod login work
+   //     AppEventsLogger.activate(application)
+        
         return true
     }
 
