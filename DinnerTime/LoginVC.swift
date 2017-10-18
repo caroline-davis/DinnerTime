@@ -18,7 +18,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var toggleSignIn: UISegmentedControl!
     
     var userEmailAndPasswords = [[String: String]]()
-    var alreadySignedUp = Bool()
+    var alreadySignedUp = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,17 +43,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             let password = passwordField.text
 
             if alreadySignedUp == true {
-            // log in
-            // log in with firebase and get their existing user id
+            // log in - log in with firebase and get their existing user id
                 Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
                 let keychainResult = KeychainWrapper.standard.set((user?.uid)!, forKey: KEY_UID)
                     self.performSegue(withIdentifier: "goToHomeScreen", sender: nil)
                 }
                 
             } else {
-                // register new user
-                // create new user and create new user id
-
+                // register new user - create new user and create new user id
                 Auth.auth().createUser(withEmail: email!, password: password!) { (user, error) in
                     print(error)
                   let keychainResult = KeychainWrapper.standard.set((user?.uid)!, forKey: KEY_UID)
