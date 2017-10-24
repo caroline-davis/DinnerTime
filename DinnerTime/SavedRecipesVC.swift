@@ -9,18 +9,18 @@
 import UIKit
 
 class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
-   // var savedRecipes: [[String:String]]!
+    // var savedRecipes: [[String:String]]!
     var savedRecipes = [
-    ["FavColour": "Green", "FavSong": "The Lion Sleeps Tonight"],
-    ["FavColour": "Purple", "FavSong": "Green Onions"]
+        ["FavColour": "Green", "FavSong": "The Lion Sleeps Tonight"],
+        ["FavColour": "Purple", "FavSong": "Green Onions"]
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -31,14 +31,14 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-       let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell")!
-       let dictionary = self.savedRecipes[indexPath.row]
-      
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell")!
+        let dictionary = self.savedRecipes[indexPath.row]
+        
         
         cell.textLabel?.text = dictionary["FavColour"]
         //        cell.detailTextLabel?.text = dictionary["apron"]
         return cell
-
+        
     }
     
     
@@ -46,6 +46,6 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         return
     }
-
-
+    
+    
 }
