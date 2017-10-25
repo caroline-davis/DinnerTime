@@ -9,15 +9,23 @@
 import UIKit
 import Alamofire
 
-class BrowseRecipesVC: UIViewController, UITextFieldDelegate {
+class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var usersBrowserField: UITextField!
+    
     var stringOfWords: String!
+    
+    var website = String()
+    var tableViewData = [[String: Any]]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         usersBrowserField.delegate = self
+        
+        tableView.delegate = self
+        tableView.dataSource = self
 
     }
     
@@ -31,36 +39,60 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-   
-    @IBAction func searchRecipes(_ sender: AnyObject) {
-        // make the request to the API
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.tableViewData.count
+    }
+    
+    // puts the data in the cells
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedRecipeCell") as? RecipeCell
+        let dictionary = self.tableViewData[indexPath.row]
+        website = dictionary["f2f_url"] as! String
+        
+        cell?.recipeLbl?.text = dictionary["title"] as! String?
+        cell?.viewBtn.addTarget(self, action: #selector(viewRecipeClicked), for: .allEvents)
+        
+        return cell!
+    }
+    
+    // opens url in safari
+    func viewRecipeClicked() {
+        UIApplication.shared.openURL(URL(string: website)!)
+    }
+    
+    
+    func typeInIngredients() {
+        stringOfWords = usersBrowserField.text
+        
+        // if string isnt empty
+        if stringOfWords != "" {
+            
+            // if string has more than 1 word add the + sign inbetween for the API String
+            if stringOfWords.components(separatedBy: " ").count > 0 {
+                stringOfWords = stringOfWords.replacingOccurrences(of: " ", with: "+")
+            }
+        }
+        searchRecipes()
+    }
+    
+    func searchRecipes() {
+        // make the request to the API - remember to add the ! to the stringofwords so its not optional and works
         print("\(API_ADDRESS)\(SEARCH_RECIPES)\(API_KEY)&q=\(stringOfWords)")
         Alamofire.request("\(API_ADDRESS)\(SEARCH_RECIPES)\(API_KEY)&q=\(stringOfWords!)").responseJSON { response in
-            print(response.result.value)
-            if let json = response.result.value {
-                print("helloooo")
-                print("CAROL: JSON: \(json)")
+            
+            if let value = response.result.value as? [String: Any] {
+                if let dictionaries = value["recipes"] as? [[String: Any]] {
+                    if dictionaries.count > 0 {
+                        self.tableViewData = dictionaries
+                        self.tableView.reloadData()
+                    }
+                }
+                
             }
             
         }
     }
     
-    
-    func typeInIngredients() {
-
-        stringOfWords = usersBrowserField.text
-        
-        if stringOfWords.components(separatedBy: " ").count > 0 {
-            print("CAROL STRING HERE", stringOfWords)
-            stringOfWords = stringOfWords.replacingOccurrences(of: " ", with: "+")
-            print("CAROL STRING HERE", stringOfWords)
-        } else {
-          print("There was a\(LocalizedError.self)")
-        }
-        
-    }
-    
-
     
 }
 
