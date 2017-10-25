@@ -16,7 +16,6 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     var stringOfWords: String!
     
-    var website = String()
     var tableViewData = [[String: Any]]()
 
     override func viewDidLoad() {
@@ -26,8 +25,10 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         
         tableView.delegate = self
         tableView.dataSource = self
+        
 
     }
+    
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         typeInIngredients()
@@ -47,16 +48,18 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedRecipeCell") as? RecipeCell
         let dictionary = self.tableViewData[indexPath.row]
-        website = dictionary["f2f_url"] as! String
         
         cell?.recipeLbl?.text = dictionary["title"] as! String?
+        cell?.viewBtn.tag = indexPath.row
         cell?.viewBtn.addTarget(self, action: #selector(viewRecipeClicked), for: .allEvents)
         
         return cell!
     }
     
     // opens url in safari
-    func viewRecipeClicked() {
+    func viewRecipeClicked(sender:UIButton) {
+        let dictionary = self.tableViewData[sender.tag]
+        let website = dictionary["source_url"] as! String
         UIApplication.shared.openURL(URL(string: website)!)
     }
     

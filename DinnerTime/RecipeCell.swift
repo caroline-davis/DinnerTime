@@ -23,6 +23,7 @@ class RecipeCell: UITableViewCell {
         viewBtn.setTitleColor(UIColor(red:0.14, green:0.13, blue:0.19, alpha:1.0), for: .highlighted)
         viewBtn.titleLabel?.font = UIFont(name: "Helvetica", size: 14)
         
+        
     }
 
    
