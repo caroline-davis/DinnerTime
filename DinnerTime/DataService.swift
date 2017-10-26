@@ -14,8 +14,6 @@ class DataService {
     
     static let ds = DataService()
     
-    
-    
     func logout(uid: String) {
         // log out code
         
