@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class RecipeCell: UITableViewCell {
 
     @IBOutlet weak var viewBtn: UIButton!
@@ -26,7 +27,10 @@ class RecipeCell: UITableViewCell {
         viewBtn.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 12)
         viewBtn.layer.cornerRadius = 10
         
+        
     }
+    
+
 
    
 

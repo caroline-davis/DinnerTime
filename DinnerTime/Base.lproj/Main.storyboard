@@ -254,7 +254,7 @@
                                 <frame key="frameInset" minX="16" minY="64" width="343" height="126"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type in a dish" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oS3-ha-oN6" customClass="RecipeField" customModule="DinnerTime" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type in a dish or some ingredients" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oS3-ha-oN6" customClass="RecipeField" customModule="DinnerTime" customModuleProvider="target">
                                         <frame key="frameInset" minX="9" minY="78" width="324" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -287,21 +287,25 @@
                                             <frame key="frameInset" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hx-du-1W7">
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRt-2F-QfW">
+                                                    <frame key="frameInset" minX="303" minY="3" width="38" height="36"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
+                                                    <color key="tintColor" red="0.74509803919999995" green="0.63529411759999999" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="♥︎">
+                                                        <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="clickHeart:" destination="v5e-5Q-AGF" eventType="touchUpInside" id="hC5-tt-SNk"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hx-du-1W7">
                                                     <frame key="frameInset" minX="14" minY="11" width="211" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DRt-2F-QfW">
-                                                    <frame key="frameInset" minX="300" minY="-7" width="46" height="53"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
-                                                    <state key="normal" title="♥︎">
-                                                        <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7OY-HB-hTQ">
                                                     <frame key="frameInset" minX="245" minY="7" width="55" height="24"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -313,8 +317,11 @@
                                             </subviews>
                                             <color key="backgroundColor" red="0.74509803919999995" green="0.63529411759999999" blue="0.68627450980000004" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <bool key="isElement" value="YES"/>
+                                        </accessibility>
                                         <connections>
-                                            <outlet property="heart" destination="DRt-2F-QfW" id="Riy-YT-b8W"/>
+                                            <outlet property="heart" destination="DRt-2F-QfW" id="Wfg-90-JRu"/>
                                             <outlet property="recipeLbl" destination="4hx-du-1W7" id="lVi-7j-CM6"/>
                                             <outlet property="viewBtn" destination="7OY-HB-hTQ" id="fIn-66-OLy"/>
                                         </connections>

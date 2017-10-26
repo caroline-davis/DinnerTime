@@ -14,6 +14,9 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var usersBrowserField: UITextField!
     
+
+    
+    @IBOutlet weak var contentView: UIView!
     var stringOfWords: String!
     
     var tableViewData = [[String: Any]]()
@@ -25,11 +28,10 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-
+    
     }
     
-    
+ 
     func textFieldDidEndEditing(_ textField: UITextField) {
         typeInIngredients()
     }
@@ -56,11 +58,27 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         return cell!
     }
     
+
+    
     // opens url in safari
     func viewRecipeClicked(sender:UIButton) {
         let dictionary = self.tableViewData[sender.tag]
         let website = dictionary["source_url"] as! String
-        UIApplication.shared.openURL(URL(string: website)!)
+        UIApplication.shared.open(URL(string:website)!, options: [:], completionHandler: nil)
+        
+    }
+    
+    // saves the recipe for the recipe book in saved recipes vc
+    @IBAction func clickHeart(_ sender: UIButton) {
+    
+        if sender.isSelected == false {
+            sender.setTitleColor(UIColor(red:0.50, green:0.00, blue:0.25, alpha:1.0), for: .normal)
+            sender.isSelected = true
+        } else {
+            sender.setTitleColor(UIColor(red:0.90, green:0.90, blue:0.90, alpha:1.0), for: .normal)
+            sender.isSelected = false
+        }
+        
     }
     
     
