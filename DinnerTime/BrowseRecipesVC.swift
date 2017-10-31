@@ -39,13 +39,32 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     func watchRecipes() {
         var userId = "123"
         
+        // checks to see if recipes have been liked and added to firebase
         ref.child("recipes").child(userId).observe(DataEventType.childAdded, with: { (snapshot) in
+            
             let recipe = snapshot.value as? [String : AnyObject] ?? [:]
             var recipeId = recipe["recipe_id"] as! String
+            
             for (index, dictionary) in self.tableViewData.enumerated() {
                 var currentRecipe = dictionary
                 if currentRecipe["recipe_id"] as! String == recipeId {
                     currentRecipe["saved"] = true
+                    self.tableViewData[index] = currentRecipe
+                    self.tableView.reloadData()
+                }
+            }
+        })
+        
+        ref.child("recipes").child(userId).observe(DataEventType.childRemoved, with: { (snapshot) in
+            
+            let recipe = snapshot.value as? [String : AnyObject] ?? [:]
+            var recipeId = recipe["recipe_id"] as! String
+            print("removed", recipeId)
+            
+            for (index, dictionary) in self.tableViewData.enumerated() {
+                var currentRecipe = dictionary
+                if currentRecipe["recipe_id"] as! String == recipeId {
+                    currentRecipe["saved"] = false
                     self.tableViewData[index] = currentRecipe
                     self.tableView.reloadData()
                 }
@@ -66,7 +85,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.tableViewData.count
+         return self.tableViewData.count
     }
     
     // puts the data in the cells
@@ -84,6 +103,8 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
 
         if saved == true {
             cell?.heart.setTitleColor(UIColor(red:0.50, green:0.00, blue:0.25, alpha:1.0), for: .normal)
+        } else {
+            cell?.heart.setTitleColor(UIColor(red:0.90, green:0.90, blue:0.90, alpha:1.0), for: .normal)
         }
         cell?.heart.tag = indexPath.row
         
@@ -109,16 +130,11 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         let recipeId = dictionary["recipe_id"] as! String
         var userId = "123"
         
-        ref.child("recipes").child(userId).child(recipeId).setValue(dictionary)
-//        if sender.isSelected == false {
-//            sender.setTitleColor(UIColor(red:0.50, green:0.00, blue:0.25, alpha:1.0), for: .normal)
-//            sender.isSelected = true
-//            // add this recipe to the saved recipes list for the database
-//        } else {
-//            sender.setTitleColor(UIColor(red:0.90, green:0.90, blue:0.90, alpha:1.0), for: .normal)
-//            sender.isSelected = false
-//            // delete this recipe off the saved recipes list for the database
-//        }
+        if dictionary["saved"] as! Bool == false {
+             ref.child("recipes").child(userId).child(recipeId).setValue(dictionary)
+        } else {
+            ref.child("recipes").child(userId).child(recipeId).removeValue()
+        }
         
     }
     
@@ -170,6 +186,9 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     func searchCurrentSavedRecipes(recipeId: String, completion: @escaping (_ hasSaved: Bool) -> Void) {
         var userId = "123"
+        
+        // check to see if recipe is in the saved recipes already. then we can set the heart as full or not
+        
         ref.child("recipes").child(userId).child(recipeId).observeSingleEvent(of: .value, with: { (snapshot) in
 
             let value = snapshot.value as? NSDictionary
