@@ -10,6 +10,8 @@
 		416E726E9EDB4D2F7DEC4C5F /* Pods_DinnerTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81F0D52A193D9788D979DE4 /* Pods_DinnerTime.framework */; };
 		F13F04F11FA1796500E70347 /* RecipeField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13F04F01FA1796500E70347 /* RecipeField.swift */; };
 		F13F04F31FA1918100E70347 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13F04F21FA1918100E70347 /* MenuItem.swift */; };
+		F152A5571FA838B800AB011F /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F152A5561FA838B800AB011F /* Cell.swift */; };
+		F152A5591FA8391200AB011F /* SavedRecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F152A5581FA8391200AB011F /* SavedRecipeCell.swift */; };
 		F156A0461F9477A500DC027A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F156A0451F9477A500DC027A /* GoogleService-Info.plist */; };
 		F17476E01FA0543E00DA39E8 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17476DF1FA0543E00DA39E8 /* RecipeCell.swift */; };
 		F17980D31F95AC220010FA35 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17980D21F95AC220010FA35 /* Constants.swift */; };
@@ -32,6 +34,8 @@
 		E81F0D52A193D9788D979DE4 /* Pods_DinnerTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DinnerTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F13F04F01FA1796500E70347 /* RecipeField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeField.swift; sourceTree = "<group>"; };
 		F13F04F21FA1918100E70347 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
+		F152A5561FA838B800AB011F /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		F152A5581FA8391200AB011F /* SavedRecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedRecipeCell.swift; sourceTree = "<group>"; };
 		F156A0451F9477A500DC027A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F17476DF1FA0543E00DA39E8 /* RecipeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		F17980D21F95AC220010FA35 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -71,6 +75,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F152A55A1FA8391900AB011F /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				F152A5561FA838B800AB011F /* Cell.swift */,
+				F17476DF1FA0543E00DA39E8 /* RecipeCell.swift */,
+				F152A5581FA8391200AB011F /* SavedRecipeCell.swift */,
+			);
+			name = CustomCells;
+			sourceTree = "<group>";
+		};
 		F18D053E1F96FCFE0075F3D7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +104,7 @@
 		F1DCC4B91F9478DC00363137 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F17476DF1FA0543E00DA39E8 /* RecipeCell.swift */,
+				F152A55A1FA8391900AB011F /* CustomCells */,
 				F13F04F01FA1796500E70347 /* RecipeField.swift */,
 				F18D053C1F96DC390075F3D7 /* FacebookButton.swift */,
 				F13F04F21FA1918100E70347 /* MenuItem.swift */,
@@ -302,10 +316,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F17476E01FA0543E00DA39E8 /* RecipeCell.swift in Sources */,
+				F152A5591FA8391200AB011F /* SavedRecipeCell.swift in Sources */,
 				F18D05401F96FD1D0075F3D7 /* DataService.swift in Sources */,
 				F1F66D251F948F9600AF371D /* HomeVC.swift in Sources */,
 				F1F66D291F94905500AF371D /* BrowseRecipesVC.swift in Sources */,
 				F1F66D2B1F94908000AF371D /* DinnerRouletteVC.swift in Sources */,
+				F152A5571FA838B800AB011F /* Cell.swift in Sources */,
 				F1E2921C1F94755500D273EF /* LoginVC.swift in Sources */,
 				F17980D31F95AC220010FA35 /* Constants.swift in Sources */,
 				F18D053D1F96DC390075F3D7 /* FacebookButton.swift in Sources */,

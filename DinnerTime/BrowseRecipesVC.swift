@@ -14,16 +14,14 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var usersBrowserField: UITextField!
-    @IBOutlet weak var contentView: UIView!
-    
     var stringOfWords: String!
     var tableViewData = [[String: Any]]()
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         watchRecipes()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,47 +31,9 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         tableView.dataSource = self
         
         ref = Database.database().reference()
-    
-    }
-    
-    func watchRecipes() {
-        var userId = "123"
-        
-        // checks to see if recipes have been liked and added to firebase
-        ref.child("recipes").child(userId).observe(DataEventType.childAdded, with: { (snapshot) in
-            
-            let recipe = snapshot.value as? [String : AnyObject] ?? [:]
-            var recipeId = recipe["recipe_id"] as! String
-            
-            for (index, dictionary) in self.tableViewData.enumerated() {
-                var currentRecipe = dictionary
-                if currentRecipe["recipe_id"] as! String == recipeId {
-                    currentRecipe["saved"] = true
-                    self.tableViewData[index] = currentRecipe
-                    self.tableView.reloadData()
-                }
-            }
-        })
-        
-        ref.child("recipes").child(userId).observe(DataEventType.childRemoved, with: { (snapshot) in
-            
-            let recipe = snapshot.value as? [String : AnyObject] ?? [:]
-            var recipeId = recipe["recipe_id"] as! String
-            print("removed", recipeId)
-            
-            for (index, dictionary) in self.tableViewData.enumerated() {
-                var currentRecipe = dictionary
-                if currentRecipe["recipe_id"] as! String == recipeId {
-                    currentRecipe["saved"] = false
-                    self.tableViewData[index] = currentRecipe
-                    self.tableView.reloadData()
-                }
-            }
-        })
         
     }
     
- 
     func textFieldDidEndEditing(_ textField: UITextField) {
         typeInIngredients()
     }
@@ -84,8 +44,9 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         return true
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return self.tableViewData.count
+        return self.tableViewData.count
     }
     
     // puts the data in the cells
@@ -100,7 +61,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         // if dictionary["saved"] is true, change the color of the heart
         let saved = dictionary["saved"] as! Bool
         let id = dictionary["recipe_id"] as! String
-
+        
         if saved == true {
             cell?.heart.setTitleColor(UIColor(red:0.50, green:0.00, blue:0.25, alpha:1.0), for: .normal)
         } else {
@@ -111,7 +72,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         return cell!
     }
     
-
+    
     
     // opens url in safari
     func viewRecipeClicked(sender:UIButton) {
@@ -123,7 +84,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     // saves the recipe for the recipe book in saved recipes vc
     @IBAction func clickHeart(_ sender: UIButton) {
-    print(sender.tag)
+        print(sender.tag)
         let dictionary = self.tableViewData[sender.tag]
         let website = dictionary["source_url"] as! String
         let title = dictionary["title"] as! String
@@ -131,14 +92,14 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         var userId = "123"
         
         if dictionary["saved"] as! Bool == false {
-             ref.child("recipes").child(userId).child(recipeId).setValue(dictionary)
+            ref.child("recipes").child(userId).child(recipeId).setValue(dictionary)
         } else {
             ref.child("recipes").child(userId).child(recipeId).removeValue()
         }
         
     }
     
-    
+    // users types in ingredients or food.
     func typeInIngredients() {
         stringOfWords = usersBrowserField.text
         
@@ -153,8 +114,9 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         searchRecipes()
     }
     
+    
+    // searches for recipes with the API
     func searchRecipes() {
-        
         // make the request to the API - remember to add the ! to the stringofwords so its not optional and works
         print("\(API_ADDRESS)\(SEARCH_RECIPES)\(API_KEY)&q=\(stringOfWords)")
         Alamofire.request("\(API_ADDRESS)\(SEARCH_RECIPES)\(API_KEY)&q=\(stringOfWords!)").responseJSON { response in
@@ -174,7 +136,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
                                 recipe["saved"] = result
                                 self.tableViewData.append(recipe)
                                 self.tableView.reloadData()
-                            
+                                
                             })
                         }
                         
@@ -187,10 +149,10 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     func searchCurrentSavedRecipes(recipeId: String, completion: @escaping (_ hasSaved: Bool) -> Void) {
         var userId = "123"
         
-        // check to see if recipe is in the saved recipes already. then we can set the heart as full or not
+        // check to see if recipe is in the saved recipes already. then we can set the bool for the heart as full or not
         
         ref.child("recipes").child(userId).child(recipeId).observeSingleEvent(of: .value, with: { (snapshot) in
-
+            
             let value = snapshot.value as? NSDictionary
             if value != nil {
                 completion(true)
@@ -201,6 +163,39 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    // checks the current dictionary to see if the recipe is there and if its to be saved or not.
+    func checkingRecipe(recipeSaved: Bool, snapshot: DataSnapshot) {
+        let recipe = snapshot.value as? [String : AnyObject] ?? [:]
+        var recipeId = recipe["recipe_id"] as! String
+        
+        for (index, dictionary) in tableViewData.enumerated() {
+            var currentRecipe = dictionary
+            if currentRecipe["recipe_id"] as! String == recipeId {
+                currentRecipe["saved"] = recipeSaved
+                self.tableViewData[index] = currentRecipe
+                self.tableView.reloadData()
+            }
+        }
+        
+    }
+    
+    // checks to see movement of recipes (wheather user has added or deleted any off the saved recipes array
+    func watchRecipes() {
+        var userId = "123"
+        
+        // checks to see if recipes have been liked and added to firebase
+        ref.child("recipes").child(userId).observe(DataEventType.childAdded, with: { (snapshot) in
+            
+            self.checkingRecipe(recipeSaved: true, snapshot: snapshot)
+        })
+        
+        // checks to see if recipes have been deleted and will delete on firebase
+        ref.child("recipes").child(userId).observe(DataEventType.childRemoved, with: { (snapshot) in
+            self.checkingRecipe(recipeSaved: false, snapshot: snapshot)
+        })
+        
     }
     
     

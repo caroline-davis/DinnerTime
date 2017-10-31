@@ -7,45 +7,58 @@
 //
 
 import UIKit
+import FirebaseDatabase
+import Alamofire
 
 class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    // var savedRecipes: [[String:String]]!
-    var savedRecipes = [
-        ["FavColour": "Green", "FavSong": "The Lion Sleeps Tonight"],
-        ["FavColour": "Purple", "FavSong": "Green Onions"]
-    ]
+    var savedRecipeData = [[String: Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ref = Database.database().reference()
+        
         tableView.delegate = self
         tableView.dataSource = self
+        
+        loadRecipesFromFirebase()
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.savedRecipes.count
+        return self.savedRecipeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell")!
-        let dictionary = self.savedRecipes[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell") as? SavedRecipeCell
+        let dictionary = self.savedRecipeData[indexPath.row]
         
+        cell?.savedRecipeLbl?.text = dictionary["title"] as! String?
         
-        cell.textLabel?.text = dictionary["FavColour"]
-        //        cell.detailTextLabel?.text = dictionary["apron"]
-        return cell
+    
+        return cell!
         
     }
     
+    func loadRecipesFromFirebase() {
+        
+        var userId = "123"
+    
+        ref.child("recipes").child(userId).observe(DataEventType.value, with: { (snapshot) in
+            let dictionary = snapshot.value as? [String : AnyObject] ?? [:]
+           
+            var recipeId = dictionary["recipe_id"] as! String
+            
+            
+        })
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
     }
+    
+
     
     
 }
