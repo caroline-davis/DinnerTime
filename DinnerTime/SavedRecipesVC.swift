@@ -33,7 +33,7 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell") as? SavedRecipeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SavedRecipeCell") as? SavedRecipeCell
         let dictionary = self.savedRecipeData[indexPath.row]
         
         cell?.savedRecipeLbl?.text = dictionary["title"] as! String?
@@ -46,11 +46,17 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func loadRecipesFromFirebase() {
         
         var userId = "123"
-    
-        ref.child("recipes").child(userId).observe(DataEventType.value, with: { (snapshot) in
-            let dictionary = snapshot.value as? [String : AnyObject] ?? [:]
-           
-            var recipeId = dictionary["recipe_id"] as! String
+        
+        // childAdded is called once for each existing child under the parent, then again if anything is added
+        ref.child("recipes").child(userId).observe(DataEventType.childAdded, with: { (snapshot) in
+            
+            
+            let dictionary = snapshot.value as? [String : AnyObject]
+            
+            if (dictionary != nil) {
+                self.savedRecipeData.append(dictionary!)
+                self.tableView.reloadData()
+            }
             
             
         })

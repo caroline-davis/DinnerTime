@@ -22,5 +22,5 @@ func setTheCells(recipeLabel: UILabel, viewButton: UIButton) {
     viewButton.layer.cornerRadius = 10
     
     
-    
 }
+
