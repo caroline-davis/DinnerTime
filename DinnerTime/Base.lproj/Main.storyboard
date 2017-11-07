@@ -226,6 +226,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="clickHeart:" destination="v5e-5Q-AGF" eventType="touchUpInside" id="cwB-og-Lln"/>
+                                                        <action selector="deleteRecipeWithSender:" destination="cZY-nS-LCy" eventType="touchUpInside" id="77B-XV-V05"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4rp-VH-jLH">
