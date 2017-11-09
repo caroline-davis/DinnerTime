@@ -14,15 +14,17 @@ class DinnerRouletteVC: UIViewController {
     
     @IBOutlet weak var pizza: UIImageView!
     @IBOutlet weak var recipeLabel: UILabel!
+    @IBOutlet weak var viewRecipeBtn: UIButton!
+    @IBOutlet weak var resultsView: UIView!
     
     var recipes: [[String: AnyObject]]!
     var angle: CGFloat = 0
- 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
-
+        
+        self.resultsView.isHidden = true
     }
     
     @IBAction func randomRecipeGenerator() {
@@ -61,9 +63,11 @@ class DinnerRouletteVC: UIViewController {
             // need to extract the title of the recipe + check if it is empty
             let recipeName = recipe["title"]
             if recipeName != nil {
-                self.recipeLabel.text = recipeName as? String
+                self.recipeLabel.text = (recipeName?.capitalized)! as String
+                self.resultsView.isHidden = false
             } else {
-                self.recipeLabel.text  = "No Name Recipe" 
+                self.recipeLabel.text  = "No Name Recipe"
+                self.resultsView.isHidden = false
             }
             
         })
