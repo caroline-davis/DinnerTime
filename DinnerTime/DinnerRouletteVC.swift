@@ -12,9 +12,13 @@ import Firebase
 
 class DinnerRouletteVC: UIViewController {
     
+    @IBOutlet weak var pizza: UIImageView!
     @IBOutlet weak var recipeLabel: UILabel!
+    
     var recipes: [[String: AnyObject]]!
-
+    var angle: CGFloat = 0
+ 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = Database.database().reference()
@@ -22,6 +26,22 @@ class DinnerRouletteVC: UIViewController {
     }
     
     @IBAction func randomRecipeGenerator() {
+        
+        var newAngle: CGFloat = angle + 180
+        angle = newAngle
+        
+        print("CAROL THIS IS NEW ANGLE\(newAngle)")
+        print("carol this is angle \(angle)")
+    
+        // rotates the uiview
+        UIView.animate(withDuration: 2.0, animations: {
+            self.pizza.transform = CGAffineTransform(rotationAngle: (newAngle * CGFloat(M_PI)) / 180)
+        })
+
+        
+        // makes the code below begin after 2 seconds aka. after the pizza has spun!!!!
+        let when = DispatchTime.now() + 1.8
+        DispatchQueue.main.asyncAfter(deadline: when) {
         
         let userId = "123"
         ref.child("recipes").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -48,6 +68,7 @@ class DinnerRouletteVC: UIViewController {
             
         })
         
+        }
     }
 
 
