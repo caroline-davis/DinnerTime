@@ -14,6 +14,10 @@ target 'DinnerTime' do
   pod 'Alamofire', '~> 4.5'
   pod 'SwiftKeychainWrapper'
 
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
+
 
 
 end

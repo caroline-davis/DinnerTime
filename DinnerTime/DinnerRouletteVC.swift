@@ -66,7 +66,7 @@ class DinnerRouletteVC: UIViewController {
     func spinPizza() {
         
         // gets the angle to change when the button is clicked to continually do 360 spins
-        var newAngle: CGFloat = angle + 180
+        let newAngle: CGFloat = angle + 180
         angle = newAngle
         
         // rotates the uiview

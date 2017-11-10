@@ -76,12 +76,16 @@
                                 <state key="normal" title="f">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="facebookButtonClickedWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9xh-gr-EYi"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.12104224240031583" green="0.13333333333333333" blue="0.19215686274509783" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="emailField" destination="cfK-sw-imc" id="iDw-tV-pKc"/>
+                        <outlet property="fbButton" destination="NaM-nG-dh2" id="wmu-65-5a4"/>
                         <outlet property="passwordField" destination="mzt-9Z-8TN" id="lAF-gI-Ogu"/>
                         <outlet property="toggleSignIn" destination="i2I-a7-88X" id="Auu-uu-gRk"/>
                         <segue destination="exw-4d-VtB" kind="show" identifier="goToHomeScreen" id="PNq-Bt-ZTd"/>
@@ -206,7 +210,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wFq-fq-u9g" id="SXg-D6-d2t">
-                                            <frame key="frameInset" width="343" height="43"/>
+                                            <frame key="frameInset" width="343" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Bo-tV-grA">

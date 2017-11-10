@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FacebookCore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         // code needed to make fb swift pod login work
-   //     AppEventsLogger.activate(application)
+        AppEventsLogger.activate(application)
         
         return true
     }
@@ -46,6 +47,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    // code needed to make fb swift pod login work
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
+    }
+
 
 
 }

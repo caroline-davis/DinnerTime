@@ -18,6 +18,7 @@ let API_ADDRESS = "https://food2fork.com/api"
 let SEARCH_RECIPES = "/search?key="
 let GET_RECIPES = "/get"
 
+// user id
 var CURRENT_USER = KeychainWrapper.standard.string(forKey: KEY_UID)!
 
 var ref: DatabaseReference!
