@@ -38,6 +38,8 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         cell?.savedRecipeLbl?.text = dictionary["title"] as! String?
         cell?.savedHeart.tag = indexPath.row
+        cell?.savedViewBtn.tag = indexPath.row
+        cell?.savedViewBtn.addTarget(self, action: #selector(viewRecipeClicked), for: .allEvents)
         
         return cell!
         
@@ -85,8 +87,16 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         // removes from firebase database first
         ref.child("recipes").child(userId).child(recipeId).removeValue()
+    
         
-        
+    }
+    
+    
+    // opens url in safari
+    func viewRecipeClicked(sender:UIButton) {
+        let dictionary = self.savedRecipeData[sender.tag]
+        let website = dictionary["source_url"] as! String
+        UIApplication.shared.open(URL(string:website)!, options: [:], completionHandler: nil)
         
     }
     
