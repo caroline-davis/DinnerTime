@@ -106,6 +106,9 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
             if stringOfWords.components(separatedBy: " ").count > 0 {
                 stringOfWords = stringOfWords.replacingOccurrences(of: " ", with: "+")
             }
+        } else if stringOfWords == "" {
+            alerts(message: "Please type something in this field")
+            return
         }
         searchRecipes()
     }
@@ -136,6 +139,8 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
                             })
                         }
                         
+                    } else if dictionaries.count <= 0 {
+                        self.alerts(message: "Sorry there are no recipes found, please try again")
                     }
                 }
             }
@@ -191,6 +196,12 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
             self.checkingRecipe(recipeSaved: false, snapshot: snapshot)
         })
         
+    }
+    
+    func alerts(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     
