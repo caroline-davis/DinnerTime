@@ -31,6 +31,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         // segues dont work in viewdidLoad
         if let userID =  KeychainWrapper.standard.string(forKey: KEY_UID) {
             print("CAROL: \(userID)")
+            print("CAROL: CURRENT USER\(CURRENT_USER)")
             performSegue(withIdentifier: "goToHomeScreen", sender: nil)
         }
     }

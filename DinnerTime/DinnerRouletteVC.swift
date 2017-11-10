@@ -36,8 +36,7 @@ class DinnerRouletteVC: UIViewController {
         let when = DispatchTime.now() + 1.8
         DispatchQueue.main.asyncAfter(deadline: when) {
             
-            let userId = "123"
-            ref.child("recipes").child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("recipes").child(CURRENT_USER).observeSingleEvent(of: .value, with: { (snapshot) in
                 let dictionary = snapshot.value as? [String : [String: AnyObject]] ?? [:]
                 
                 // remove the keys, we just want the values

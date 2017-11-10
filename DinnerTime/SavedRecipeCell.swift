@@ -20,6 +20,5 @@ class SavedRecipeCell: UITableViewCell {
         setTheCells(recipeLabel: savedRecipeLbl, viewButton: savedViewBtn)
     }
     
-    
-    
+
 }

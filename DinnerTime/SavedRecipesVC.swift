@@ -47,10 +47,8 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func loadRecipesFromFirebase() {
         
-        var userId = "123"
-        
         // childAdded is called once for each existing child under the parent, then again if anything is added
-        ref.child("recipes").child(userId).observe(DataEventType.childAdded, with: { (snapshot) in
+        ref.child("recipes").child(CURRENT_USER).observe(DataEventType.childAdded, with: { (snapshot) in
             
             let dictionary = snapshot.value as? [String : AnyObject]
             
@@ -61,7 +59,7 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
         
         // checks to see if recipes have been deleted and will delete on firebase
-        ref.child("recipes").child(userId).observe(DataEventType.childRemoved, with: { (snapshot) in
+        ref.child("recipes").child(CURRENT_USER).observe(DataEventType.childRemoved, with: { (snapshot) in
             
             // the way to get access to the snapshot of data from firebase docs
             let value = snapshot.value as? [String : AnyObject] ?? [:]
@@ -81,12 +79,12 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     // if the heart is clicked on this vc we need to remove the cell from the ui and also from the saved recipes array. We also need to delete recipe off the array in firebase.
     @IBAction func deleteRecipe(sender: UIButton) {
-        var userId = "123"
+
         let recipe = self.savedRecipeData[sender.tag]
         let recipeId = recipe["recipe_id"] as! String
 
         // removes from firebase database first
-        ref.child("recipes").child(userId).child(recipeId).removeValue()
+        ref.child("recipes").child(CURRENT_USER).child(recipeId).removeValue()
     
         
     }

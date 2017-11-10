@@ -85,12 +85,11 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBAction func clickHeart(_ sender: UIButton) {
         let dictionary = self.tableViewData[sender.tag]
         let recipeId = dictionary["recipe_id"] as! String
-        let userId = "123"
         
         if dictionary["saved"] as! Bool == false {
-            ref.child("recipes").child(userId).child(recipeId).setValue(dictionary)
+            ref.child("recipes").child(CURRENT_USER).child(recipeId).setValue(dictionary)
         } else {
-            ref.child("recipes").child(userId).child(recipeId).removeValue()
+            ref.child("recipes").child(CURRENT_USER).child(recipeId).removeValue()
         }
         
     }
@@ -148,10 +147,10 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     func searchCurrentSavedRecipes(recipeId: String, completion: @escaping (_ hasSaved: Bool) -> Void) {
-        let userId = "123"
+
         
         // check to see if recipe is in the saved recipes already. then we can set the bool for the heart as full or not
-        ref.child("recipes").child(userId).child(recipeId).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("recipes").child(CURRENT_USER).child(recipeId).observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary
             if value != nil {
@@ -183,16 +182,16 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     // checks to see movement of recipes (whether user has added or deleted any off the saved recipes array
     func watchRecipes() {
-        let userId = "123"
+        
         
         // checks to see if recipes have been liked and added to firebase
-        ref.child("recipes").child(userId).observe(DataEventType.childAdded, with: { (snapshot) in
+        ref.child("recipes").child(CURRENT_USER).observe(DataEventType.childAdded, with: { (snapshot) in
             
             self.checkingRecipe(recipeSaved: true, snapshot: snapshot)
         })
         
         // checks to see if recipes have been deleted and will delete on firebase
-        ref.child("recipes").child(userId).observe(DataEventType.childRemoved, with: { (snapshot) in
+        ref.child("recipes").child(CURRENT_USER).observe(DataEventType.childRemoved, with: { (snapshot) in
             self.checkingRecipe(recipeSaved: false, snapshot: snapshot)
         })
         
