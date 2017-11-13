@@ -12,10 +12,7 @@ class MenuItem: UIButton {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-     //   layer.borderColor = UIColor.white.cgColor
-     //   layer.borderWidth = 3
-        
+
         // shadowing
         layer.shadowColor = UIColor(red:0.51, green:0.51, blue:0.51, alpha:1.0).cgColor
         layer.shadowOpacity = 0.8

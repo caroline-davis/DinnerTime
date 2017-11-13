@@ -18,6 +18,7 @@ class RecipeCell: UITableViewCell {
         super.awakeFromNib()
         
         setTheCells(recipeLabel: recipeLbl, viewButton: viewBtn)
+        
     }
     
     

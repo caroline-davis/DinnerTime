@@ -60,7 +60,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         
         // if dictionary["saved"] is true, change the color of the heart
         let saved = dictionary["saved"] as! Bool
-        let id = dictionary["recipe_id"] as! String
+        _ = dictionary["recipe_id"] as! String
         
         if saved == true {
             cell?.heart.setTitleColor(UIColor(red:0.50, green:0.00, blue:0.25, alpha:1.0), for: .normal)
@@ -106,7 +106,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 stringOfWords = stringOfWords.replacingOccurrences(of: " ", with: "+")
             }
         } else if stringOfWords == "" {
-            alerts(message: "Please type something in this field")
+            self.alerts(message: "Please type something in this field")
             return
         }
         searchRecipes()
