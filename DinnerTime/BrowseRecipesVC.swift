@@ -51,12 +51,13 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     // puts the data in the cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedRecipeCell") as? RecipeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipesCell") as? RecipesCell
         let dictionary = self.tableViewData[indexPath.row]
         
         cell?.recipeLbl?.text = dictionary["title"] as! String?
         cell?.viewBtn.tag = indexPath.row
         cell?.viewBtn.addTarget(self, action: #selector(viewRecipeClicked), for: .allEvents)
+        cell?.heart.addTarget(self, action: #selector(clickHeart), for: .allEvents)
         
         // if dictionary["saved"] is true, change the color of the heart
         let saved = dictionary["saved"] as! Bool
@@ -82,7 +83,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     // saves the recipe for the recipe book in saved recipes vc
-    @IBAction func clickHeart(_ sender: UIButton) {
+    func clickHeart(_ sender: UIButton) {
         let dictionary = self.tableViewData[sender.tag]
         let recipeId = dictionary["recipe_id"] as! String
         

@@ -33,13 +33,16 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SavedRecipeCell") as? SavedRecipeCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecipesCell") as? RecipesCell
         let dictionary = self.savedRecipeData[indexPath.row]
+
+        cell?.recipeLbl?.text = dictionary["title"] as! String?
+        cell?.heart.tag = indexPath.row
+        cell?.heart.setTitleColor(UIColor(red:0.50, green:0.00, blue:0.25, alpha:1.0), for: .normal)
+        cell?.heart.addTarget(self, action: #selector(deleteRecipe), for: .allEvents)
         
-        cell?.savedRecipeLbl?.text = dictionary["title"] as! String?
-        cell?.savedHeart.tag = indexPath.row
-        cell?.savedViewBtn.tag = indexPath.row
-        cell?.savedViewBtn.addTarget(self, action: #selector(viewRecipeClicked), for: .allEvents)
+        cell?.viewBtn.tag = indexPath.row
+        cell?.viewBtn.addTarget(self, action: #selector(viewRecipeClicked), for: .allEvents)
         
         return cell!
         
@@ -78,7 +81,7 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     // if the heart is clicked on this vc we need to remove the cell from the ui and also from the saved recipes array. We also need to delete recipe off the array in firebase.
-    @IBAction func deleteRecipe(sender: UIButton) {
+    func deleteRecipe(sender: UIButton) {
 
         let recipe = self.savedRecipeData[sender.tag]
         let recipeId = recipe["recipe_id"] as! String
