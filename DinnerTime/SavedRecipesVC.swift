@@ -85,6 +85,7 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         // removes from firebase database first
         ref.child("recipes").child(CURRENT_USER).child(recipeId).removeValue()
+
     
         
     }

@@ -31,7 +31,9 @@ class DataService {
         
     }
     
-    
+    func removeRecipe(recipeId: String) {
+        ref.child("recipes").child(CURRENT_USER).child(recipeId).removeValue()
+    }
     
     
 }

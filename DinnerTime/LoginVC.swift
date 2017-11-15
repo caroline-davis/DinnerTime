@@ -62,7 +62,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-  
+    
     
     // link the fb log in with firebase authentication
     func firebaseAuth(_ credential: AuthCredential) {
@@ -86,18 +86,30 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             let email = emailField.text
             let password = passwordField.text
             
-            
             if alreadySignedUp == true {
                 // log in - log in with firebase and get their existing user id
                 Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
-                    self.completeSignIn(user: user!)
+                    
+                    if (error != nil) {
+                        self.alerts(message: "\(error!.localizedDescription)")
+                        self.activityIndicator.stopAnimating()
+                    } else {
+                        
+                        self.completeSignIn(user: user!)
+                    }
                 }
                 
             } else {
                 // register new user - create new user and create new user id
                 Auth.auth().createUser(withEmail: email!, password: password!) { (user, error) in
-                    print(error)
-                    self.completeSignIn(user: user!)
+                    
+                    if (error != nil) {
+                        self.alerts(message: "\(error!.localizedDescription)")
+                        self.activityIndicator.stopAnimating()
+                    } else {
+                        
+                        self.completeSignIn(user: user!)
+                    }
                 }
                 
             }
@@ -111,12 +123,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     func completeSignIn(user: UserInfo) {
         
         let keychainResult = KeychainWrapper.standard.set(user.uid, forKey: KEY_UID)
-        print("CAROL: USER: \(user.uid)")
-        print("CAROl: Data saved to keychain\(keychainResult)")
         self.performSegue(withIdentifier: "goToHomeScreen", sender: nil)
-
+        
     }
-
+    
     
     @IBAction func segmentClicked(_ sender: AnyObject) {
         if(toggleSignIn.selectedSegmentIndex == 0) {
@@ -127,11 +137,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
     }
     
-    func alerts(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
     
 }
 

@@ -18,7 +18,7 @@
 		F17980D31F95AC220010FA35 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17980D21F95AC220010FA35 /* Constants.swift */; };
 		F18D053D1F96DC390075F3D7 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D053C1F96DC390075F3D7 /* FacebookButton.swift */; };
 		F18D05401F96FD1D0075F3D7 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D053F1F96FD1D0075F3D7 /* DataService.swift */; };
-		F18E047A1FB95AF100C109AC /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18E04791FB95AF100C109AC /* Convenience.swift */; };
+		F1B41EA01FBBDDCE002F8348 /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B41E9F1FBBDDCE002F8348 /* Convenience.swift */; };
 		F1E2921A1F94755500D273EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E292191F94755500D273EF /* AppDelegate.swift */; };
 		F1E2921C1F94755500D273EF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E2921B1F94755500D273EF /* LoginVC.swift */; };
 		F1E2921F1F94755500D273EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E2921D1F94755500D273EF /* Main.storyboard */; };
@@ -43,7 +43,7 @@
 		F17980D21F95AC220010FA35 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F18D053C1F96DC390075F3D7 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		F18D053F1F96FD1D0075F3D7 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
-		F18E04791FB95AF100C109AC /* Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
+		F1B41E9F1FBBDDCE002F8348 /* Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 		F1E292161F94755500D273EF /* DinnerTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DinnerTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E292191F94755500D273EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E2921B1F94755500D273EF /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -95,11 +95,18 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		F1B41E9E1FBBDD81002F8348 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F17980D21F95AC220010FA35 /* Constants.swift */,
+				F1B41E9F1FBBDDCE002F8348 /* Convenience.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		F1DCC4B81F9478D500363137 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F18E04791FB95AF100C109AC /* Convenience.swift */,
-				F17980D21F95AC220010FA35 /* Constants.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -149,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				F1F2CCE21F95E9760052A7AA /* DinnerTime.entitlements */,
+				F1B41E9E1FBBDD81002F8348 /* Utilities */,
 				F18D053E1F96FCFE0075F3D7 /* Services */,
 				F1DCC4B81F9478D500363137 /* Model */,
 				F1DCC4B91F9478DC00363137 /* View */,
@@ -333,7 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F17476E01FA0543E00DA39E8 /* RecipeCell.swift in Sources */,
-				F18E047A1FB95AF100C109AC /* Convenience.swift in Sources */,
+				F1B41EA01FBBDDCE002F8348 /* Convenience.swift in Sources */,
 				F152A5591FA8391200AB011F /* SavedRecipeCell.swift in Sources */,
 				F18D05401F96FD1D0075F3D7 /* DataService.swift in Sources */,
 				F1F66D251F948F9600AF371D /* HomeVC.swift in Sources */,
