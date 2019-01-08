@@ -13,7 +13,6 @@
 		F156A0461F9477A500DC027A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F156A0451F9477A500DC027A /* GoogleService-Info.plist */; };
 		F157C1481FB40A0900726817 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F157C1471FB40A0900726817 /* Assets.xcassets */; };
 		F17980D31F95AC220010FA35 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17980D21F95AC220010FA35 /* Constants.swift */; };
-		F18D053D1F96DC390075F3D7 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D053C1F96DC390075F3D7 /* FacebookButton.swift */; };
 		F18D05401F96FD1D0075F3D7 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18D053F1F96FD1D0075F3D7 /* DataService.swift */; };
 		F1B41EA01FBBDDCE002F8348 /* Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B41E9F1FBBDDCE002F8348 /* Convenience.swift */; };
 		F1B41EA21FBBE511002F8348 /* RecipesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1B41EA11FBBE511002F8348 /* RecipesCell.swift */; };
@@ -36,7 +35,6 @@
 		F156A0451F9477A500DC027A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F157C1471FB40A0900726817 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F17980D21F95AC220010FA35 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F18D053C1F96DC390075F3D7 /* FacebookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		F18D053F1F96FD1D0075F3D7 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		F1B41E9F1FBBDDCE002F8348 /* Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Convenience.swift; sourceTree = "<group>"; };
 		F1B41EA11FBBE511002F8348 /* RecipesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipesCell.swift; sourceTree = "<group>"; };
@@ -73,14 +71,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F152A55A1FA8391900AB011F /* CustomCells */ = {
-			isa = PBXGroup;
-			children = (
-				F1B41EA11FBBE511002F8348 /* RecipesCell.swift */,
-			);
-			name = CustomCells;
-			sourceTree = "<group>";
-		};
 		F18D053E1F96FCFE0075F3D7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,10 +98,9 @@
 		F1DCC4B91F9478DC00363137 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				F152A55A1FA8391900AB011F /* CustomCells */,
 				F13F04F01FA1796500E70347 /* RecipeField.swift */,
-				F18D053C1F96DC390075F3D7 /* FacebookButton.swift */,
 				F13F04F21FA1918100E70347 /* MenuItem.swift */,
+				F1B41EA11FBBE511002F8348 /* RecipesCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -120,10 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				F1E2921B1F94755500D273EF /* LoginVC.swift */,
-				F1F66D281F94905500AF371D /* BrowseRecipesVC.swift */,
-				F1F66D2A1F94908000AF371D /* DinnerRouletteVC.swift */,
 				F1F66D241F948F9600AF371D /* HomeVC.swift */,
+				F1F66D281F94905500AF371D /* BrowseRecipesVC.swift */,
 				F1F66D261F94900000AF371D /* SavedRecipesVC.swift */,
+				F1F66D2A1F94908000AF371D /* DinnerRouletteVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -186,7 +175,6 @@
 				F1E292131F94755500D273EF /* Frameworks */,
 				F1E292141F94755500D273EF /* Resources */,
 				4B7ABA2530214C44C1A82D85 /* [CP] Embed Pods Frameworks */,
-				2FB0537D8FD52E1B747CE32E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -204,12 +192,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Caroline Davis";
 				TargetAttributes = {
 					F1E292151F94755500D273EF = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 2UNXUT4D3C;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -252,21 +241,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2FB0537D8FD52E1B747CE32E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DinnerTime/Pods-DinnerTime-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4B7ABA2530214C44C1A82D85 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,15 +249,9 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DinnerTime/Pods-DinnerTime-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -291,15 +259,9 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -342,7 +304,6 @@
 				F1B41EA21FBBE511002F8348 /* RecipesCell.swift in Sources */,
 				F1E2921C1F94755500D273EF /* LoginVC.swift in Sources */,
 				F17980D31F95AC220010FA35 /* Constants.swift in Sources */,
-				F18D053D1F96DC390075F3D7 /* FacebookButton.swift in Sources */,
 				F1E2921A1F94755500D273EF /* AppDelegate.swift in Sources */,
 				F13F04F31FA1918100E70347 /* MenuItem.swift in Sources */,
 				F1F66D271F94900000AF371D /* SavedRecipesVC.swift in Sources */,
@@ -381,15 +342,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -432,15 +401,23 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
@@ -482,7 +459,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carolinedavis.DinnerTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -501,7 +479,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.carolinedavis.DinnerTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

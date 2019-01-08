@@ -25,7 +25,10 @@ class DinnerRouletteVC: UIViewController {
         super.viewDidLoad()
         ref = Database.database().reference()
         
-        self.resultsView.isHidden = true
+        DispatchQueue.main.async {
+            self.resultsView.isHidden = true
+            self.viewRecipeBtn.isHidden = true
+        }
     }
     
     @IBAction func randomRecipeGenerator() {
@@ -43,23 +46,29 @@ class DinnerRouletteVC: UIViewController {
                 let values = Array(dictionary.values) as [[String: AnyObject]]
                 self.recipes = values
                 
-                // this will give us the number of the random index it has chosen
-                self.randomRecipe = Int(arc4random_uniform(UInt32(self.recipes.count)))
-                // this will select the chosen index in the recipes array
-                let recipe = self.recipes[self.randomRecipe]
-                
-                // need to extract the title of the recipe + check if it is empty
-                let recipeName = recipe["title"]
-                if recipeName != nil {
-                    self.recipeLabel.text = (recipeName?.capitalized)! as String
-                    self.resultsView.isHidden = false
+                if self.recipes.count != 0 {
+                    
+                    // this will give us the number of the random index it has chosen
+                    self.randomRecipe = Int(arc4random_uniform(UInt32(self.recipes.count)))
+                    // this will select the chosen index in the recipes array
+                    let recipe = self.recipes[self.randomRecipe]
+                    
+                    // need to extract the title of the recipe + check if it is empty
+                    let recipeName = recipe["title"]
+                    if recipeName != nil {
+                        self.recipeLabel.text = (recipeName?.capitalized)! as String
+                        self.resultsView.isHidden = false
+                        self.viewRecipeBtn.isHidden = false
+                    } else {
+                        self.recipeLabel.text  = "No Name Recipe"
+                        self.resultsView.isHidden = false
+                        self.viewRecipeBtn.isHidden = false
+                    }
+                    
                 } else {
-                    self.recipeLabel.text  = "No Name Recipe"
-                    self.resultsView.isHidden = false
+                    self.alerts(message: "Please add a recipe to your cook book first")
                 }
-                
             })
-            
         }
     }
     
@@ -71,9 +80,8 @@ class DinnerRouletteVC: UIViewController {
         
         // rotates the uiview
         UIView.animate(withDuration: 2.0, animations: {
-            self.pizza.transform = CGAffineTransform(rotationAngle: (newAngle * CGFloat(M_PI)) / 180)
+            self.pizza.transform = CGAffineTransform(rotationAngle: (newAngle * CGFloat(Double.pi)) / 180)
         })
-
     }
     
     @IBAction func openViewButton(sender: UIButton) {
@@ -81,11 +89,11 @@ class DinnerRouletteVC: UIViewController {
         // gets the randomIndex chose from arc4random and gets the URL... opens it in safari
         let recipe = self.recipes[self.randomRecipe]
         let recipeURL = recipe["source_url"] as! String
-        UIApplication.shared.open(URL(string: recipeURL)!, options: [:], completionHandler: nil)
-        
+        UIApplication.shared.open(URL(string: recipeURL)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
+}
 
-
-
-
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

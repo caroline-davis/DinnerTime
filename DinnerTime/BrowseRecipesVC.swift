@@ -16,7 +16,7 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var usersBrowserField: UITextField!
     var stringOfWords: String!
     var tableViewData = [[String: Any]]()
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
         watchRecipes()
@@ -25,13 +25,13 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usersBrowserField.delegate = self
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         ref = Database.database().reference()
         
+        DispatchQueue.main.async {
+            self.usersBrowserField.delegate = self
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+        }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -43,7 +43,6 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         textField.resignFirstResponder()
         return true
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tableViewData.count
@@ -75,15 +74,15 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     
     // opens url in safari
-    func viewRecipeClicked(sender:UIButton) {
+    @objc func viewRecipeClicked(sender:UIButton) {
         let dictionary = self.tableViewData[sender.tag]
         let website = dictionary["source_url"] as! String
-        UIApplication.shared.open(URL(string:website)!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string:website)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         
     }
     
     // saves the recipe for the recipe book in saved recipes vc
-    func clickHeart(_ sender: UIButton) {
+    @objc func clickHeart(_ sender: UIButton) {
         let dictionary = self.tableViewData[sender.tag]
         let recipeId = dictionary["recipe_id"] as! String
         
@@ -92,7 +91,6 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         } else {
             ref.child("recipes").child(CURRENT_USER).child(recipeId).removeValue()
         }
-        
     }
     
     // users types in ingredients or food.
@@ -116,10 +114,10 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     // searches for recipes with the API
     func searchRecipes() {
-        
+
         // make the request to the API - remember to add the ! to the stringofwords so its not optional and works
         Alamofire.request("\(API_ADDRESS)\(SEARCH_RECIPES)\(API_KEY)&q=\(stringOfWords!)").responseJSON { response in
-            
+       
             // clear tableViewData
             self.tableViewData.removeAll()
             
@@ -135,7 +133,6 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
                                 recipe["saved"] = result
                                 self.tableViewData.append(recipe)
                                 self.tableView.reloadData()
-                                
                             })
                         }
                         
@@ -148,7 +145,6 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
     
     func searchCurrentSavedRecipes(recipeId: String, completion: @escaping (_ hasSaved: Bool) -> Void) {
-
         
         // check to see if recipe is in the saved recipes already. then we can set the bool for the heart as full or not
         ref.child("recipes").child(CURRENT_USER).child(recipeId).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -159,9 +155,8 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
             } else {
                 completion(false)
             }
-            
         }) { (error) in
-            print(error.localizedDescription)
+            self.alerts(message: "\(error.localizedDescription)")
         }
     }
     
@@ -178,16 +173,13 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 self.tableView.reloadData()
             }
         }
-        
     }
     
     // checks to see movement of recipes (whether user has added or deleted any off the saved recipes array
     func watchRecipes() {
         
-        
         // checks to see if recipes have been liked and added to firebase
         ref.child("recipes").child(CURRENT_USER).observe(DataEventType.childAdded, with: { (snapshot) in
-            
             self.checkingRecipe(recipeSaved: true, snapshot: snapshot)
         })
         
@@ -195,13 +187,10 @@ class BrowseRecipesVC: UIViewController, UITextFieldDelegate, UITableViewDelegat
         ref.child("recipes").child(CURRENT_USER).observe(DataEventType.childRemoved, with: { (snapshot) in
             self.checkingRecipe(recipeSaved: false, snapshot: snapshot)
         })
-        
     }
-    
-    
-    
 }
 
-
-
-
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
+}

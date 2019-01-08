@@ -20,11 +20,12 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         ref = Database.database().reference()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        loadRecipesFromFirebase()
-        
+        DispatchQueue.main.async {
+            self.tableView.delegate = self
+            self.tableView.dataSource = self
+            
+            self.loadRecipesFromFirebase()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,7 +36,7 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipesCell") as? RecipesCell
         let dictionary = self.savedRecipeData[indexPath.row]
-
+        
         cell?.recipeLbl?.text = dictionary["title"] as! String?
         cell?.heart.tag = indexPath.row
         cell?.heart.setTitleColor(UIColor(red:0.50, green:0.00, blue:0.25, alpha:1.0), for: .normal)
@@ -76,33 +77,29 @@ class SavedRecipesVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             // reloading the data when the deletion has been completed from the savedRecipesArray
             self.tableView.reloadData()
-
+            
         })
     }
     
     // if the heart is clicked on this vc we need to remove the cell from the ui and also from the saved recipes array. We also need to delete recipe off the array in firebase.
-    func deleteRecipe(sender: UIButton) {
-
+    @objc func deleteRecipe(sender: UIButton) {
+        
         let recipe = self.savedRecipeData[sender.tag]
         let recipeId = recipe["recipe_id"] as! String
-
+        
         // removes from firebase database first
         ref.child("recipes").child(CURRENT_USER).child(recipeId).removeValue()
-
-    
-        
     }
-    
     
     // opens url in safari
-    func viewRecipeClicked(sender:UIButton) {
+    @objc func viewRecipeClicked(sender:UIButton) {
         let dictionary = self.savedRecipeData[sender.tag]
         let website = dictionary["source_url"] as! String
-        UIApplication.shared.open(URL(string:website)!, options: [:], completionHandler: nil)
-        
+        UIApplication.shared.open(URL(string:website)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
-    
+}
 
-    
-    
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

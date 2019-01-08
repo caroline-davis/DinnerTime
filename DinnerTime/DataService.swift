@@ -15,20 +15,16 @@ class DataService {
     static let ds = DataService()
     
     func logout(uid: String) {
-        // log out code
         
         // remove saved user id key
-        let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
-        print("CAROL: ID removed from keychain \(keychainResult)")
+        KeychainWrapper.standard.removeObject(forKey: KEY_UID)
         
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
         } catch let signOutError as NSError {
             print ("CAROL: Error signing out: %@", signOutError)
-        }
-        
-        
+        }  
     }
     
     func removeRecipe(recipeId: String) {

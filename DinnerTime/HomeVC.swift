@@ -11,21 +11,18 @@ import Firebase
 import SwiftKeychainWrapper
 
 class HomeVC: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     @IBAction func logOut(_ sender: AnyObject) {
         DataService.ds.logout(uid: KEY_UID)
-        
-        print("CAROL:ITS LOGGED OUT")
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "LoginVC") as UIViewController
         
         self.present(vc, animated: true, completion: nil)
     }
-
-
+    
 }

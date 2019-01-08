@@ -9,14 +9,12 @@
 import UIKit
 
 class RecipeField: UITextField {
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         let indentView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
         self.leftView = indentView
         self.leftViewMode = .always
-        
     }
-
 }

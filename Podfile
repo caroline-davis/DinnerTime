@@ -13,10 +13,7 @@ target 'DinnerTime' do
   pod 'Firebase/Database'
   pod 'Alamofire', '~> 4.5'
   pod 'SwiftKeychainWrapper'
-
-  pod 'FacebookCore'
-  pod 'FacebookLogin'
-  pod 'FacebookShare'
+  pod 'IQKeyboardManagerSwift'
 
 
 

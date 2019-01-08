@@ -9,13 +9,9 @@
 import UIKit
 import Firebase
 import SwiftKeychainWrapper
-import FacebookCore
-import FacebookLogin
-
 
 class LoginVC: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var fbButton: FacebookButton!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var toggleSignIn: UISegmentedControl!
@@ -27,59 +23,41 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        emailField.delegate = self
-        passwordField.delegate = self
+        DispatchQueue.main.async {
+            self.emailField.delegate = self
+            self.passwordField.delegate = self
+        }
         
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         // segues dont work in viewdidLoad
+        super.viewDidAppear(animated)
         if KeychainWrapper.standard.string(forKey: KEY_UID) != nil {
             performSegue(withIdentifier: "goToHomeScreen", sender: nil)
         }
-        
     }
-    
-    // Once the facebook button is clicked, it fires off this function
-    @IBAction func facebookButtonClicked(sender: UIButton) {
-        let loginManager = LoginManager()
-        
-        loginManager.logIn(readPermissions: [ReadPermission.publicProfile], viewController : self) { loginResult in
-            switch loginResult {
-            case .failed(let error):
-                print(error)
-                self.alerts(message: "Sorry we are unable to authenticate you, please try again")
-            case .cancelled:
-                print("User cancelled login")
-                self.alerts(message: "You have cancelled your login")
-            case .success(let grantedPermissions, let declinedPermissions, let accessToken):
-                print("Carol", "Logged In")
-                // User succesfully logged in. Contains granted, declined permissions and access token.
-                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.authenticationToken)
-                self.firebaseAuth(credential)
-            }
-        }
-    }
-    
-    
     
     // link the fb log in with firebase authentication
     func firebaseAuth(_ credential: AuthCredential) {
-        Auth.auth().signIn(with: credential) { (user, error) in
+        
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+        
+        Auth.auth().signInAndRetrieveData(with: credential) { (user, error) in
             if (error != nil) {
-                print("CAROL: Unable to autheticate with firebase - \(error)")
+                print("Sorry we are unable to authenticate you, please try again")
                 self.alerts(message: "Sorry we are unable to authenticate you, please try again")
             } else {
-                print("Carol: Successfully authenticated with firebase")
-                self.completeSignIn(user: user!)
-                
+                self.completeSignIn(user: user! as! UserInfo)
             }
         }
     }
     
+    
     @IBAction func logIn(_ sender: UIButton) {
         
+        self.activityIndicator.isHidden = false
         self.activityIndicator.startAnimating()
         
         if emailField.text != "" && passwordField.text != "" {
@@ -88,45 +66,43 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             
             if alreadySignedUp == true {
                 // log in - log in with firebase and get their existing user id
-                Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
+                Auth.auth().signIn(withEmail: email!, password: password!) { (authResult, error) in
                     
                     if (error != nil) {
                         self.alerts(message: "\(error!.localizedDescription)")
+                        self.activityIndicator.isHidden = true
                         self.activityIndicator.stopAnimating()
                     } else {
-                        
+                        let user = authResult?.user
                         self.completeSignIn(user: user!)
                     }
                 }
-                
             } else {
                 // register new user - create new user and create new user id
-                Auth.auth().createUser(withEmail: email!, password: password!) { (user, error) in
+                Auth.auth().createUser(withEmail: email!, password: password!) { (authResult, error) in
                     
                     if (error != nil) {
                         self.alerts(message: "\(error!.localizedDescription)")
+                        self.activityIndicator.isHidden = true
                         self.activityIndicator.stopAnimating()
                     } else {
-                        
+                        let user = authResult?.user
                         self.completeSignIn(user: user!)
                     }
                 }
-                
             }
         } else {
             self.alerts(message: "Please type something in the login fields")
+            activityIndicator.isHidden = true
             activityIndicator.stopAnimating()
         }
-        
     }
     
     func completeSignIn(user: UserInfo) {
         
-        let keychainResult = KeychainWrapper.standard.set(user.uid, forKey: KEY_UID)
+        KeychainWrapper.standard.set(user.uid, forKey: KEY_UID)
         self.performSegue(withIdentifier: "goToHomeScreen", sender: nil)
-        
     }
-    
     
     @IBAction func segmentClicked(_ sender: AnyObject) {
         if(toggleSignIn.selectedSegmentIndex == 0) {
@@ -134,10 +110,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         } else if (toggleSignIn.selectedSegmentIndex == 1) {
             alreadySignedUp = false
         }
-        
     }
-    
-    
 }
 
 
